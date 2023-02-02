@@ -6,6 +6,8 @@ const cartItemContainer = document.querySelector('.cart-item-container');
 const totalDisplay = document.querySelector('.total');
 const itemCountIcon = document.querySelector('.count-icon');
 
+const arr = [];
+
 let totalBalance = 44.0;
 let itemCount = 3;
 let itemSelectionTotal;
@@ -53,12 +55,10 @@ function addCartItem(e) {
   let itemImgSrc = item.children[0].children[0].src;
   let itemColor = item.children[1].children[0].children[1].innerText;
   let itemPrice = item.children[1].children[0].children[2].innerText.replace(
-    /[^\w. ]/g,
+    /[^\w., ]/g,
     ''
   );
   let itemQuantity = 1;
-
-  console.log(itemPrice);
 
   let selectedItem = `<div class="mb-6">
         <div class="block relative h-24 rounded overflow-hidden">
@@ -82,7 +82,13 @@ function addCartItem(e) {
           <div>${itemPrice}</div>
         </div>
       </div>`;
-  cartItemContainer.innerHTML = selectedItem;
+  if (!arr.includes(selectedItem)) {
+    arr.push(selectedItem);
+  } else {
+    console.log('this cart already contains this item');
+  }
+
+  cartItemContainer.innerHTML = arr.join('');
   //   cartItemContainer.append(selectedItem);
 }
 
